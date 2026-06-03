@@ -43,8 +43,10 @@ When shipping a new plugin from this template, the agent must perform all of the
 4. Create and install the GitHub repository custom social preview image:
    - Start from `assets/github-social-template.svg`.
    - Replace the sample headline, accent line, description, and badges with plugin-specific copy.
-   - Export a 1280 x 640 PNG.
-   - Upload the PNG to the plugin repository's GitHub custom social preview slot: repository **Settings** -> **General** -> **Social preview** -> **Edit**.
+   - Export a 1280 x 640 PNG to `assets/github-social-preview.png`.
+   - The agent must try to upload the PNG to the plugin repository's GitHub custom social preview slot: repository **Settings** -> **General** -> **Social preview** -> **Edit**.
+   - Prefer a supported GitHub API if GitHub adds one. Today, GitHub's public REST/GraphQL API does not expose a supported social-preview upload endpoint, so use authenticated browser automation when the session has repository admin access.
+   - If the agent cannot access an authenticated GitHub web session with admin rights, leave the generated PNG in the repo, state that upload is blocked by GitHub UI auth/admin access, and give the exact GitHub Settings path.
    - Do not treat the plugin repository as launch-ready until this custom GitHub social preview is uploaded. GitHub uses it for repository cards, link unfurls, and social shares.
    - This is separate from the README banner, website docs images, and Capgo marketing assets.
    - Keep the install command as `npm i @capgo/capacitor-<plugin-slug>` because this is public marketing/docs copy.
@@ -87,7 +89,8 @@ gh repo edit Cap-go/capacitor-<plugin-slug> \
   --homepage "https://capgo.app/docs/plugins/<plugin-slug>/"
 
 # GitHub repository custom social preview source lives in assets/github-social-template.svg.
-# Export it to a 1280 x 640 PNG and upload it at Settings -> General -> Social preview.
+# Export it to assets/github-social-preview.png, then upload it at Settings -> General -> Social preview.
+# No supported public GitHub API currently exists for this upload, so use authenticated browser automation when available.
 ```
 
 ## Quick Start
