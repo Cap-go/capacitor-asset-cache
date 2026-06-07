@@ -1,5 +1,8 @@
 import './style.css';
+
+import { Capacitor } from '@capacitor/core';
 import { PluginTemplate } from '@capgo/capacitor-plugin-template';
+import { CapacitorUpdater } from '@capgo/capacitor-updater';
 
 const output = document.getElementById('plugin-output');
 const echoInput = document.getElementById('echo-value');
@@ -9,6 +12,12 @@ const versionButton = document.getElementById('get-version');
 const setOutput = (value) => {
   output.textContent = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
 };
+
+if (Capacitor.isNativePlatform()) {
+  void CapacitorUpdater.notifyAppReady().catch((error) => {
+    console.error('CapacitorUpdater.notifyAppReady failed', error);
+  });
+}
 
 echoButton.addEventListener('click', async () => {
   try {

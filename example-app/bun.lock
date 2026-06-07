@@ -5,14 +5,16 @@
     "": {
       "name": "capacitor-app",
       "dependencies": {
-        "@capacitor/android": "latest",
-        "@capacitor/core": "latest",
-        "@capacitor/ios": "latest",
+        "@capacitor/android": "^8.3.4",
+        "@capacitor/core": "^8.3.4",
+        "@capacitor/ios": "^8.3.4",
         "@capgo/capacitor-plugin-template": "file:..",
+        "@capgo/capacitor-updater": "^8.45.11",
       },
       "devDependencies": {
-        "@capacitor/cli": "latest",
-        "vite": "latest",
+        "@capacitor/cli": "^8.3.4",
+        "typescript": "^6.0.3",
+        "vite": "^8.0.13",
       },
     },
   },
@@ -32,6 +34,8 @@
     "@capacitor/ios": ["@capacitor/ios@8.3.4", "", { "peerDependencies": { "@capacitor/core": "^8.3.0" } }, "sha512-XvvnPFWWP/gwwO811ue7nEBKSZqDCIB8hxGgWV6iXA7DSVLqMOEmQdfHj94kkVxof2wL9XWHypu3ayDULo7U5w=="],
 
     "@capgo/capacitor-plugin-template": ["@capgo/capacitor-plugin-template@file:..", { "devDependencies": { "@capacitor/android": "^8.3.4", "@capacitor/cli": "^8.3.4", "@capacitor/core": "^8.3.4", "@capacitor/docgen": "^0.3.1", "@capacitor/ios": "^8.3.4", "@ionic/eslint-config": "^0.4.0", "@ionic/prettier-config": "^4.0.0", "@ionic/swiftlint-config": "^2.0.0", "@types/node": "^25.9.1", "eslint": "^10.4.0", "eslint-plugin-import": "^2.32.0", "husky": "^9.1.7", "prettier": "^3.8.3", "prettier-plugin-java": "^2.9.2", "prettier-pretty-check": "^0.2.0", "rimraf": "^6.1.3", "rollup": "^4.60.4", "swiftlint": "^2.0.0", "typescript": "^6.0.3" }, "peerDependencies": { "@capacitor/core": ">=8.0.0" } }],
+
+    "@capgo/capacitor-updater": ["@capgo/capacitor-updater@8.47.9", "", { "peerDependencies": { "@capacitor/core": "^8.0.0" } }, "sha512-9HPiL143Qo+aHNQJ1hYN6p9X7zKGCK7/TfDqzX1/7ki8+Dwj6rUqlKK+hSsjiqiNzr2LYS6nTt975qN98EtRaA=="],
 
     "@emnapi/core": ["@emnapi/core@1.10.0", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.1", "tslib": "^2.4.0" } }, "sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw=="],
 

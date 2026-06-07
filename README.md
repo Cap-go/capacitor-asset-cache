@@ -96,6 +96,30 @@ rm -rf scripts/templates
 
 Then remove `"init-plugin"` from the `scripts` section in `package.json` before publishing.
 
+## Capgo Example App Deploy Setup
+
+The `Deploy example app to Capgo` GitHub Actions workflow publishes the built `example-app/` web bundle to Capgo when a GitHub release is published. It checks out the release tag, builds the plugin and example app with Bun, and uploads the bundle with the plugin package version.
+
+Required setup for every plugin created from this template:
+
+1. Create a Capgo app for the example app id from `example-app/capacitor.config.ts`.
+   The default id is `app.capgo.plugintemplate.example`; after `bun run init-plugin ...`, verify both `appId` values in that file match the new plugin package id plus `.example`.
+2. Keep the Capgo channel named `production`, or edit `.github/workflows/deploy_example_app.yml` if the example app should publish to a different default channel.
+
+`CAPGO_TOKEN` is already configured as a Capgo organization GitHub Actions secret and is read by the workflow through `${{ secrets.CAPGO_TOKEN }}`. Do not create a duplicate repository secret for new plugin repositories.
+
+Manual local deploy check, only when testing outside GitHub Actions:
+
+```bash
+CAPGO_TOKEN=<token> bun run example:capgo:deploy
+```
+
+Optional manual settings:
+
+```bash
+CAPGO_TOKEN=<token> CAPGO_CHANNEL=production CAPGO_COMMENT="Manual example deploy" bun run example:capgo:deploy
+```
+
 ## Capacitor Hook Scripts (Recommended)
 
 For plugins that need automated setup during `cap sync` / `cap update`, define Capacitor lifecycle hooks in `package.json`.
