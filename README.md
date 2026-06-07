@@ -32,7 +32,6 @@
 - [ ] Confirm examples in this file run against the real implementation.
 - [ ] Set GitHub repo description to start with `Capacitor plugin for ...`.
 - [ ] Set GitHub repo homepage to `https://capgo.app/docs/plugins/{{PLUGIN_SLUG}}/`.
-- [ ] Add the `CAPGO_TOKEN` GitHub Actions secret so releases can deploy the example app to Capgo.
 - [ ] Create a GitHub repository custom social preview from `assets/github-social-template.svg`, export it to `assets/github-social-preview.png`, and upload it at GitHub **Settings** -> **General** -> **Social preview**.
 - [ ] Open docs/website PR and follow the complete website integration checklist in section **3) Open docs/website pull request**.
 - [ ] Run `bun run verify` before publishing.
@@ -105,11 +104,11 @@ Required setup for every plugin created from this template:
 
 1. Create a Capgo app for the example app id from `example-app/capacitor.config.ts`.
    The default id is `app.capgo.plugintemplate.example`; after `bun run init-plugin ...`, verify both `appId` values in that file match the new plugin package id plus `.example`.
-2. Add `CAPGO_TOKEN` as a repository secret in GitHub:
-   **Settings** -> **Secrets and variables** -> **Actions** -> **New repository secret**.
-3. Keep the Capgo channel named `production`, or edit `.github/workflows/deploy_example_app.yml` if the example app should publish to a different default channel.
+2. Keep the Capgo channel named `production`, or edit `.github/workflows/deploy_example_app.yml` if the example app should publish to a different default channel.
 
-Manual deploy check:
+`CAPGO_TOKEN` is already configured as a Capgo organization GitHub Actions secret and is read by the workflow through `${{ secrets.CAPGO_TOKEN }}`. Do not create a duplicate repository secret for new plugin repositories.
+
+Manual local deploy check, only when testing outside GitHub Actions:
 
 ```bash
 CAPGO_TOKEN=<token> bun run example:capgo:deploy
