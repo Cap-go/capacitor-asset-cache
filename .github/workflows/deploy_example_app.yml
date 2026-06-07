@@ -36,7 +36,6 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # Keep this job capped at 10 minutes; never raise it unless explicitly asked.
     timeout-minutes: 10
     steps:
       - name: Checkout
