@@ -6,16 +6,19 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "capgo:deploy": "cd .. && bun run example:capgo:deploy"
   },
   "dependencies": {
     "@capacitor/core": "^8.3.4",
     "@capacitor/android": "^8.3.4",
     "@capacitor/ios": "^8.3.4",
-    "@capgo/capacitor-plugin-template": "file:.."
+    "@capgo/capacitor-plugin-template": "file:..",
+    "@capgo/capacitor-updater": "^8.45.11"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.3.4",
+    "typescript": "^6.0.3",
     "vite": "^8.0.13"
   }
 }
