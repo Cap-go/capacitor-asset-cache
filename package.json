@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-plugin-template",
-  "version": "8.1.5",
+  "version": "8.1.6",
   "description": "Capgo Capacitor plugin template for quickly bootstrapping new plugins.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
