@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@capgo/capacitor-plugin-template",
+      "name": "@capgo/capacitor-asset-cache",
       "devDependencies": {
         "@capacitor/android": "^8.3.4",
         "@capacitor/cli": "^8.3.4",

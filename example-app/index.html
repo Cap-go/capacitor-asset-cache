@@ -3,23 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@capgo/capacitor-plugin-template Example</title>
+    <title>@capgo/capacitor-asset-cache Example</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <main class="container">
-      <h1>@capgo/capacitor-plugin-template</h1>
-      <p class="lead">Quickly validate the template plugin wiring.</p>
+      <h1>@capgo/capacitor-asset-cache</h1>
+      <p class="lead">Resolve a CDN path into a display-ready image source.</p>
 
-      <label for="echo-value">Echo value</label>
-      <input id="echo-value" type="text" value="Hello from example app" />
+      <label for="asset-path">Asset path or URL</label>
+      <input id="asset-path" type="text" value="1200/800" />
 
       <div class="actions">
-        <button id="run-echo">Run echo</button>
-        <button id="get-version">Get plugin version</button>
+        <button id="show-asset">Show asset</button>
+        <button id="list-assets">List</button>
+        <button id="clear-cache">Clear</button>
       </div>
 
-      <pre id="plugin-output">Press a button to run an action.</pre>
+      <img id="asset-preview" alt="" />
+      <pre id="plugin-output">Press Show asset to resolve a source.</pre>
     </main>
     <script type="module" src="/src/main.js"></script>
   </body>

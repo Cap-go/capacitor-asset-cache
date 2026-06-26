@@ -1,299 +1,338 @@
-# @capgo/capacitor-plugin-template
+# @capgo/capacitor-asset-cache
 
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-plugin-template" alt="Capgo - Instant updates for Capacitor" /></a>
+<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-asset-cache" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_{{PLUGIN_REF_SLUG}}"> ➡️ Get Instant updates for your App with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_{{PLUGIN_REF_SLUG}}"> Missing a feature? We’ll build the plugin for you 💪</a></h2>
+  <h2><a href="https://capgo.app/?ref=plugin_asset_cache">Get instant updates for your app with Capgo</a></h2>
+  <h2><a href="https://capgo.app/consulting/?ref=plugin_asset_cache">Missing a feature? We will build the plugin for you</a></h2>
 </div>
 
-> Template README. Replace every `{{PLACEHOLDER}}` value before releasing.
+Transparent persistent media cache for Capacitor images, videos, and other large CDN assets.
 
-## Snapshot
+## Why Asset Cache?
 
-- **Plugin name:** `{{PLUGIN_DISPLAY_NAME}}`
-- **One-line value:** `{{PLUGIN_TAGLINE}}`
-- **Maintainer:** `{{MAINTAINER_OR_TEAM}}`
-- **Status:** `{{alpha|beta|stable}}`
+`@capgo/capacitor-asset-cache` lets app code ask for a media source and bind it directly to an `<img>`, `<video>`, React component, Vue template, or any other web UI.
 
-## Pre-Release Checklist
+- Pass a CDN path like `videos/intro.mp4` and get a local display-ready URL back.
+- Uses persistent app storage: iOS Application Support and Android internal files.
+- `src(...)` and `resolve(...)` only resolve after a local file exists; if the plugin cannot create a local file, the call rejects.
+- `bind(...)` updates an image or video element from `loading` to `ready` when the local file is available.
+- Supports cache-only, TTL, ETag, Last-Modified, and always-revalidate modes.
+- Keeps lower-level `get`, `list`, `remove`, and `clear` helpers for advanced cache management.
 
-- [ ] Replace all `{{PLACEHOLDER}}` values in this README.
-- [ ] Replace `{{PLUGIN_REF_SLUG}}` in Capgo CTA links (example: `native_audio`).
-- [ ] Confirm the README banner image uses `https://capgo.app/readme-banner.svg?repo=<GitHubOrg>/capacitor-{{PLUGIN_SLUG}}`.
-- [ ] Replace all `__AI_KEYWORD_*__` entries in `package.json`.
-- [ ] Change git remote away from this template before first push:
-  `git remote set-url origin git@github.com:Cap-go/capacitor-{{PLUGIN_SLUG}}.git`
-- [ ] Remove bootstrap-only init script from generated plugin copy:
-  delete `scripts/init-plugin.sh`, delete `scripts/templates/`, and remove `"init-plugin"` from `package.json` scripts.
-- [ ] Update the compatibility table for this plugin.
-- [ ] Update `src/definitions.ts` with the real public API and JSDoc.
-- [ ] Run `bun run docgen` and review generated API docs below.
-- [ ] Confirm examples in this file run against the real implementation.
-- [ ] Set GitHub repo description to start with `Capacitor plugin for ...`.
-- [ ] Set GitHub repo homepage to `https://capgo.app/docs/plugins/{{PLUGIN_SLUG}}/`.
-- [ ] Create a GitHub repository custom social preview from `assets/github-social-template.svg`, export it to `assets/github-social-preview.png`, and upload it at GitHub **Settings** -> **General** -> **Social preview**.
-- [ ] Open docs/website PR and follow the complete website integration checklist in section **3) Open docs/website pull request**.
-- [ ] Run `bun run verify` before publishing.
+The cache is removed when the app is uninstalled, but it is not stored in the platform cache directory that the system may flush under pressure.
 
-## Problem & Scope
+## Documentation
 
-### Why this plugin exists
-
-`{{WHAT_PAIN_POINT_IT_SOLVES}}`
-
-## Capgo Links
-
-- **Plugin docs URL:** `https://capgo.app/docs/plugins/{{PLUGIN_SLUG}}/`
-- **Plugin tutorial URL:** `{{PLUGIN_TUTORIAL_URL}}`
-- **Website/docs repo:** `https://github.com/Cap-go/website`
-
-### What it does
-
-- `{{CAPABILITY_1}}`
-- `{{CAPABILITY_2}}`
-- `{{CAPABILITY_3}}`
-
-### What it does not do
-
-- `{{OUT_OF_SCOPE_1}}`
-- `{{OUT_OF_SCOPE_2}}`
+The most complete doc is available here: https://capgo.app/docs/plugins/asset-cache/
 
 ## Compatibility
 
 | Plugin version | Capacitor compatibility | Maintained |
 | -------------- | ----------------------- | ---------- |
-| v8.\*.\*       | v8.\*.\*                | ✅          |
-| v7.\*.\*       | v7.\*.\*                | On demand   |
-| v6.\*.\*       | v6.\*.\*                | On demand   |
-
-Policy:
-
-- New plugins start at version `8.0.0` (Capacitor 8 baseline).
-- Backward compatibility for older Capacitor majors is supported on demand.
-
-## Quick Start (Template Authors)
-
-```bash
-bun install
-bun run init-plugin your-plugin YourPlugin app.capgo.yourplugin
-# Optional Kotlin Android variant:
-# bun run init-plugin your-plugin YourPlugin app.capgo.yourplugin Cap-go kotlin
-bun run verify
-```
-
-The `init-plugin` command updates package names, native class names, iOS/Android identifiers, and the local example app wiring.
-It accepts an optional fifth `android-lang` argument and defaults to `java`; pass `kotlin` to generate Kotlin Android sources and Gradle setup.
-To use Kotlin while keeping the default GitHub org, pass `Cap-go` as the 4th argument and `kotlin` as the 5th argument.
-
-After running `init-plugin` in your new plugin copy:
-
-```bash
-git remote set-url origin git@github.com:Cap-go/capacitor-your-plugin.git
-rm scripts/init-plugin.sh
-rm -rf scripts/templates
-```
-
-Then remove `"init-plugin"` from the `scripts` section in `package.json` before publishing.
-
-## Capgo Example App Deploy Setup
-
-The `Deploy example app to Capgo` GitHub Actions workflow publishes the built `example-app/` web bundle to Capgo when a GitHub release is published or the workflow is manually dispatched. It checks out the release tag, builds the plugin and example app with Bun, and uploads the bundle with one direct Capgo CLI command.
-
-Required setup for every plugin created from this template:
-
-1. Create a Capgo app for the example app id from `example-app/capacitor.config.ts`.
-   The default id is `app.capgo.plugintemplate.example`; after `bun run init-plugin ...`, verify both `appId` values in that file match the new plugin package id plus `.example`.
-2. Keep the Capgo channel named `production`, or edit `.github/workflows/deploy_example_app.yml` if the example app should publish to a different default channel.
-
-`CAPGO_TOKEN` is already configured as a Capgo organization GitHub Actions secret and is read by the workflow through `${{ secrets.CAPGO_TOKEN }}`. Do not create a duplicate repository secret for new plugin repositories.
-
-## Capacitor Hook Scripts (Recommended)
-
-For plugins that need automated setup during `cap sync` / `cap update`, define Capacitor lifecycle hooks in `package.json`.
-
-Example:
-
-```json
-{
-  "scripts": {
-    "generate:version-share": "bun run scripts/generate-version-share-data.mjs",
-    "configure:dependencies": "bun run scripts/configure-dependencies.mjs",
-    "capacitor:sync:before": "bun run generate:version-share",
-    "capacitor:update:before": "bun run generate:version-share",
-    "capacitor:sync:after": "bun run configure:dependencies"
-  }
-}
-```
-
-Guideline:
-- Use `*:before` for generated inputs needed by native sync/update.
-- Use `*:after` for native patching that depends on files created by sync/update.
-- Keep hook scripts idempotent.
-
-## Public Launch (Required)
-
-### 1) Publish in Capgo GitHub org as public
-
-```bash
-gh repo create Cap-go/capacitor-{{PLUGIN_SLUG}} --public --source=. --remote=origin --push
-```
-
-If the repo already exists and is private:
-
-```bash
-gh repo edit Cap-go/capacitor-{{PLUGIN_SLUG}} --visibility public --accept-visibility-change-consequences
-```
-
-### 2) Set GitHub description, homepage, and custom social preview
-
-Description must always start with: `Capacitor plugin for ...`
-
-```bash
-gh repo edit Cap-go/capacitor-{{PLUGIN_SLUG}} \
-  --description "Capacitor plugin for {{SHORT_USE_CASE}}." \
-  --homepage "https://capgo.app/docs/plugins/{{PLUGIN_SLUG}}/"
-```
-
-Create the GitHub repository custom social preview before launch. GitHub uses this image for repository cards, link unfurls, and social shares; it is separate from the README banner and website docs images.
-
-1. Open `assets/github-social-template.svg`.
-2. Replace the sample headline, accent line, description, and badges with plugin-specific copy.
-3. Keep the terminal command as `npm i @capgo/capacitor-{{PLUGIN_SLUG}}` because social and docs copy should use public npm install syntax.
-4. Export the SVG as a 1280 x 640 PNG at `assets/github-social-preview.png`.
-5. Have the agent try to upload the PNG in GitHub under repository **Settings** -> **General** -> **Social preview** -> **Edit**.
-6. Prefer a supported GitHub API if one exists. GitHub currently does not expose a supported public REST/GraphQL endpoint for this upload, so the practical automation path is an authenticated browser session with repository admin access.
-7. If the agent cannot access an authenticated GitHub web session with admin rights, keep `assets/github-social-preview.png` in the repo and report that only the GitHub UI upload is blocked.
-8. Do not treat the repository as launch-ready until this custom GitHub social preview is uploaded.
-9. Copy targets: headline 4-9 words, accent line 2-6 words, description 60-110 characters, badges 1-3 words each. These are guardrails, not hard failures; the SVG clips longer text inside safe regions, so only shorten copy when the rendered image is hard to read or visibly clipped.
-
-### 3) Open docs/website pull request
-
-Create a PR on `https://github.com/Cap-go/website` (or the local `landing/` folder in the monorepo) with all of the following:
-
-1. Add the plugin entry in `src/config/plugins.ts`.
-2. Add a plugin `LinkCard` in `src/content/docs/docs/plugins/index.mdx`.
-3. Create docs pages in `src/content/docs/docs/plugins/<plugin-doc-slug>/`:
-   `index.mdx`, `getting-started.mdx`, and optionally `ios.mdx` + `android.mdx` when platform setup differs.
-4. Update `astro.config.mjs`:
-   add `docs/plugins/<plugin-doc-slug>/**` in pagefind path buckets and add a sidebar section for the plugin pages.
-5. Add the SEO tutorial page in `src/content/plugins-tutorials/en/<plugin-repo-slug>.md`.
-6. Add icon asset `public/icons/plugins/<plugin-doc-slug>.svg` if the docs hero uses a plugin icon.
-7. Cross-link docs and tutorial pages.
-
-Slug mapping rules:
-
-- `<plugin-doc-slug>` is the docs route slug used under `/docs/plugins/<plugin-doc-slug>/`.
-- `<plugin-repo-slug>` is extracted from the GitHub repo URL in `src/config/plugins.ts` and is used by `/plugins/<slug>/`.
-- Example: repo `https://github.com/Cap-go/capacitor-app-attest/` requires tutorial file
-  `src/content/plugins-tutorials/en/capacitor-app-attest.md`.
-
-Starter snippets:
-
-`src/config/plugins.ts`
-
-```ts
-{
-  name: '@capgo/capacitor-{{PLUGIN_SLUG}}',
-  author: 'github.com/Cap-go',
-  description: 'Capacitor plugin for {{SHORT_USE_CASE}}',
-  href: 'https://github.com/Cap-go/capacitor-{{PLUGIN_SLUG}}/',
-  title: '{{PLUGIN_DISPLAY_NAME}}',
-  icon: ShieldCheckIcon,
-},
-```
-
-`astro.config.mjs` sidebar entry
-
-```ts
-{
-  label: '{{PLUGIN_DISPLAY_NAME}}',
-  items: [
-    { label: 'Overview', link: '/docs/plugins/<plugin-doc-slug>/' },
-    { label: 'Getting started', link: '/docs/plugins/<plugin-doc-slug>/getting-started' },
-    { label: 'iOS setup', link: '/docs/plugins/<plugin-doc-slug>/ios' },
-    { label: 'Android setup', link: '/docs/plugins/<plugin-doc-slug>/android' },
-  ],
-  collapsed: true,
-},
-```
-
-Required docs files:
-
-- `src/content/docs/docs/plugins/<plugin-doc-slug>/index.mdx`
-- `src/content/docs/docs/plugins/<plugin-doc-slug>/getting-started.mdx`
-- `src/content/docs/docs/plugins/<plugin-doc-slug>/ios.mdx` (if iOS-specific setup exists)
-- `src/content/docs/docs/plugins/<plugin-doc-slug>/android.mdx` (if Android-specific setup exists)
-- `src/content/plugins-tutorials/en/<plugin-repo-slug>.md`
+| v8.\*.\*       | v8.\*.\*                | Yes        |
+| v7.\*.\*       | v7.\*.\*                | On demand  |
 
 ## Install
 
-You can use our AI-Assisted Setup to install the plugin. Add the Capgo skills to your AI tool using the following command:
-
 ```bash
-npx skills add https://github.com/cap-go/capacitor-skills --skill capacitor-plugins
+npm install @capgo/capacitor-asset-cache
+npx cap sync
 ```
 
-Then use the following prompt:
+## Usage
 
-```text
-Use the `capacitor-plugins` skill from `cap-go/capacitor-skills` to install the `@capgo/capacitor-plugin-template` plugin in my project.
-```
-
-If you prefer Manual Setup, install the plugin by running the following commands and follow the platform-specific instructions below:
-
-```bash
-bun add @capgo/capacitor-plugin-template
-bunx cap sync
-```
-
-## Minimal Usage
+Configure the CDN once, then bind media elements to CDN paths. The element only receives the local webview URL after the native fetch is done.
 
 ```typescript
-import { PluginTemplate } from '@capgo/capacitor-plugin-template';
+import { AssetCache } from '@capgo/capacitor-asset-cache';
 
-const result = await PluginTemplate.echo({ value: 'Hello from Capgo' });
-console.log(result.value);
+AssetCache.configure({
+  cdnUrl: 'https://cdn.example.com/assets/',
+  revalidate: {
+    strategy: 'ttl',
+    maxAgeSeconds: 86400,
+  },
+});
+
+const video = document.querySelector('video');
+if (video) {
+  AssetCache.bind(video, 'videos/intro.mp4');
+}
 ```
 
-## Integration Notes
+```css
+video[data-asset-cache-state='loading'],
+img[data-asset-cache-state='loading'] {
+  opacity: 0.4;
+}
 
-- **iOS:** `{{IOS_NOTES_OR_PERMISSIONS}}`
-- **Android:** `{{ANDROID_NOTES_OR_PERMISSIONS}}`
-- **Web:** `{{WEB_LIMITATIONS_OR_BEHAVIOR}}`
+video[data-asset-cache-state='ready'],
+img[data-asset-cache-state='ready'] {
+  opacity: 1;
+}
+```
 
-## Example App
+### React
 
-The `example-app/` folder is linked via `file:..` and is intended for validating native wiring during development.
+```tsx
+import { useEffect, useRef } from 'react';
+import { AssetCache } from '@capgo/capacitor-asset-cache';
+
+AssetCache.configure({ cdnUrl: 'https://cdn.example.com/assets/' });
+
+export function HeroImage() {
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (!imageRef.current) return;
+
+    const binding = AssetCache.bind(imageRef.current, 'hero.jpg');
+    return () => binding.cancel();
+  }, []);
+
+  return <img ref={imageRef} alt="" />;
+}
+```
+
+### Vue
+
+```vue
+<script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue';
+import { AssetCache, type AssetCacheBinding } from '@capgo/capacitor-asset-cache';
+
+const image = ref<HTMLImageElement | null>(null);
+let binding: AssetCacheBinding | undefined;
+
+onMounted(() => {
+  if (image.value) {
+    binding = AssetCache.bind(image.value, 'hero.jpg', {
+      cdnUrl: 'https://cdn.example.com/assets/',
+    });
+  }
+});
+
+onUnmounted(() => binding?.cancel());
+</script>
+
+<template>
+  <img ref="image" alt="" />
+</template>
+```
+
+### Direct Source
+
+Use `src(...)` when your framework already manages loading state. It resolves only after the local file is ready.
+
+```typescript
+const src = await AssetCache.src('images/hero.jpg');
+```
+
+### Protected Assets
+
+Pass headers to the native fetch. The web element receives only the local file URL returned by the plugin.
+
+```typescript
+const src = await AssetCache.src('private/videos/intro.mp4', {
+  cdnUrl: 'https://cdn.example.com/assets/',
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+```
+
+### Inspect the Resolution
+
+Use `resolve(...)` when you also want metadata about the local file resolution.
+
+```typescript
+const source = await AssetCache.resolve('images/hero.jpg');
+
+console.log(source.src, source.fromCache, source.status);
+```
+
+### Advanced Cache Control
+
+Use `get(...)` directly only when you need the raw native file metadata.
+
+```typescript
+const asset = await AssetCache.get({
+  url: 'https://example.com/videos/intro.mp4',
+  key: 'intro.mp4',
+  revalidate: { strategy: 'etag' },
+});
+```
+
+## Platform notes
+
+- iOS stores files under Application Support and excludes the cache root from iCloud backup.
+- Android stores files under the app internal files directory.
+- Web uses the browser Cache API and localStorage metadata as a development fallback.
 
 ## API
 
 <docgen-index>
 
-* [`echo(...)`](#echo)
+* [`configure(...)`](#configure)
+* [`resolve(...)`](#resolve)
+* [`src(...)`](#src)
+* [`bind(...)`](#bind)
+* [`get(...)`](#get)
+* [`remove(...)`](#remove)
+* [`clear()`](#clear)
+* [`list()`](#list)
+* [`getCacheSize()`](#getcachesize)
 * [`getPluginVersion()`](#getpluginversion)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-Base API used by the template plugin.
+Persistent asset cache for large Capacitor images, videos, and other media.
 
-### echo(...)
+### configure(...)
 
 ```typescript
-echo(options: EchoOptions) => Promise<EchoResult>
+configure(options: AssetCacheConfigOptions) => void
 ```
 
-Echo a string to validate JS &lt;-&gt; native wiring.
+Set defaults for future `src(...)`, `resolve(...)`, and `bind(...)` calls.
 
-| Param         | Type                                                |
-| ------------- | --------------------------------------------------- |
-| **`options`** | <code><a href="#echooptions">EchoOptions</a></code> |
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`options`** | <code><a href="#assetcacheconfigoptions">AssetCacheConfigOptions</a></code> |
 
-**Returns:** <code>Promise&lt;<a href="#echoresult">EchoResult</a>&gt;</code>
+--------------------
+
+
+### resolve(...)
+
+```typescript
+resolve(path: AssetCacheSourceInput, options?: AssetCacheSourceOptions | undefined) => Promise<ResolvedAssetSource>
+```
+
+Resolve a CDN path or remote URL into a local display-ready source URL.
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`path`**    | <code><a href="#assetcachesourceinput">AssetCacheSourceInput</a></code>     |
+| **`options`** | <code><a href="#assetcachesourceoptions">AssetCacheSourceOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#resolvedassetsource">ResolvedAssetSource</a>&gt;</code>
+
+--------------------
+
+
+### src(...)
+
+```typescript
+src(path: AssetCacheSourceInput, options?: AssetCacheSourceOptions | undefined) => Promise<string>
+```
+
+Resolve a CDN path or remote URL into a local string ready for `img.src` or `video.src`.
+
+| Param         | Type                                                                        |
+| ------------- | --------------------------------------------------------------------------- |
+| **`path`**    | <code><a href="#assetcachesourceinput">AssetCacheSourceInput</a></code>     |
+| **`options`** | <code><a href="#assetcachesourceoptions">AssetCacheSourceOptions</a></code> |
+
+**Returns:** <code>Promise&lt;string&gt;</code>
+
+--------------------
+
+
+### bind(...)
+
+```typescript
+bind(element: AssetCacheBindableElement, path: AssetCacheSourceInput, options?: AssetCacheBindOptions | undefined) => AssetCacheBinding
+```
+
+Bind an image or video element to a local asset and update it when ready.
+
+| Param         | Type                                                                    |
+| ------------- | ----------------------------------------------------------------------- |
+| **`element`** | <code>any</code>                                                        |
+| **`path`**    | <code><a href="#assetcachesourceinput">AssetCacheSourceInput</a></code> |
+| **`options`** | <code><a href="#assetcachebindoptions">AssetCacheBindOptions</a></code> |
+
+**Returns:** <code><a href="#assetcachebinding">AssetCacheBinding</a></code>
+
+--------------------
+
+
+### get(...)
+
+```typescript
+get(options: GetAssetOptions) => Promise<CachedAsset>
+```
+
+Resolve an asset URL into a local persistent file.
+
+| Param         | Type                                                        |
+| ------------- | ----------------------------------------------------------- |
+| **`options`** | <code><a href="#getassetoptions">GetAssetOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#cachedasset">CachedAsset</a>&gt;</code>
+
+--------------------
+
+
+### remove(...)
+
+```typescript
+remove(options: AssetCacheKeyOptions) => Promise<RemoveAssetResult>
+```
+
+Remove one cached asset by key or URL.
+
+| Param         | Type                                                                  |
+| ------------- | --------------------------------------------------------------------- |
+| **`options`** | <code><a href="#assetcachekeyoptions">AssetCacheKeyOptions</a></code> |
+
+**Returns:** <code>Promise&lt;<a href="#removeassetresult">RemoveAssetResult</a>&gt;</code>
+
+--------------------
+
+
+### clear()
+
+```typescript
+clear() => Promise<ClearCacheResult>
+```
+
+Remove every cached asset managed by this plugin.
+
+**Returns:** <code>Promise&lt;<a href="#clearcacheresult">ClearCacheResult</a>&gt;</code>
+
+--------------------
+
+
+### list()
+
+```typescript
+list() => Promise<AssetCacheListResult>
+```
+
+List cached assets that still exist on disk.
+
+**Returns:** <code>Promise&lt;<a href="#assetcachelistresult">AssetCacheListResult</a>&gt;</code>
+
+--------------------
+
+
+### getCacheSize()
+
+```typescript
+getCacheSize() => Promise<AssetCacheSizeResult>
+```
+
+Return total cached asset bytes.
+
+**Returns:** <code>Promise&lt;<a href="#assetcachesizeresult">AssetCacheSizeResult</a>&gt;</code>
 
 --------------------
 
@@ -314,22 +353,162 @@ Returns the platform implementation version marker.
 ### Interfaces
 
 
-#### EchoResult
+#### AssetCacheConfigOptions
 
-Echo response payload.
+Shared defaults used by `AssetCache.src(...)` and `AssetCache.resolve(...)`.
 
-| Prop        | Type                | Description                      |
-| ----------- | ------------------- | -------------------------------- |
-| **`value`** | <code>string</code> | The same value passed to `echo`. |
+| Prop             | Type                                                                                | Description                                        |
+| ---------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------- |
+| **`cdnUrl`**     | <code>string</code>                                                                 | Base CDN URL used when `path` is relative.         |
+| **`revalidate`** | <code><a href="#assetcacherevalidateoptions">AssetCacheRevalidateOptions</a></code> | Default revalidation behavior for resolved assets. |
 
 
-#### EchoOptions
+#### AssetCacheRevalidateOptions
 
-Input payload for the echo call.
+Revalidation options for cached assets.
 
-| Prop        | Type                | Description                                                           |
-| ----------- | ------------------- | --------------------------------------------------------------------- |
-| **`value`** | <code>string</code> | Arbitrary text that should be returned by native/web implementations. |
+| Prop                | Type                                                                                  | Description                                                                                                                                                                                                                    | Default              |
+| ------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
+| **`strategy`**      | <code><a href="#assetcacherevalidatestrategy">AssetCacheRevalidateStrategy</a></code> | `never` returns the local file when present. `ttl` re-downloads after `maxAgeSeconds`. `always` revalidates on every call and sends known validators. `etag` and `last-modified` use the matching HTTP validator when present. | <code>'never'</code> |
+| **`maxAgeSeconds`** | <code>number</code>                                                                   | Freshness window in seconds for the `ttl` strategy.                                                                                                                                                                            |                      |
+
+
+#### ResolvedAssetSource
+
+Result returned by `AssetCache.resolve(...)`.
+
+| Prop            | Type                                                | Description                                                                                         |
+| --------------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| **`src`**       | <code>string</code>                                 | Local URL ready to assign to `HTMLImageElement.src`, `HTMLVideoElement.src`, or framework bindings. |
+| **`path`**      | <code>string</code>                                 | Original path passed by the caller.                                                                 |
+| **`remoteUrl`** | <code>string</code>                                 | Fully resolved remote URL used by the native fetch.                                                 |
+| **`key`**       | <code>string</code>                                 | Stable cache key used when one is known.                                                            |
+| **`local`**     | <code>true</code>                                   | Always true for successful `resolve(...)` calls.                                                    |
+| **`fromCache`** | <code>boolean</code>                                | True when the persistent local copy already existed before this call.                               |
+| **`status`**    | <code>'hit' \| 'downloaded' \| 'notModified'</code> | Result of the local source resolution.                                                              |
+| **`asset`**     | <code><a href="#cachedasset">CachedAsset</a></code> | Native cached asset payload for the local file.                                                     |
+
+
+#### CachedAsset
+
+A cached asset stored in app-owned persistent storage.
+
+| Prop               | Type                                                | Description                                                      |
+| ------------------ | --------------------------------------------------- | ---------------------------------------------------------------- |
+| **`key`**          | <code>string</code>                                 | Stable cache key used by the plugin.                             |
+| **`url`**          | <code>string</code>                                 | Original remote URL.                                             |
+| **`path`**         | <code>string</code>                                 | Absolute native filesystem path.                                 |
+| **`uri`**          | <code>string</code>                                 | File URI that can be passed to `Capacitor.convertFileSrc`.       |
+| **`mimeType`**     | <code>string</code>                                 | Best known MIME type from the HTTP response.                     |
+| **`etag`**         | <code>string</code>                                 | Last known HTTP ETag validator.                                  |
+| **`lastModified`** | <code>string</code>                                 | Last known HTTP Last-Modified validator.                         |
+| **`size`**         | <code>number</code>                                 | File size in bytes.                                              |
+| **`updatedAt`**    | <code>number</code>                                 | Unix timestamp in milliseconds for the last successful download. |
+| **`checkedAt`**    | <code>number</code>                                 | Unix timestamp in milliseconds for the last cache check.         |
+| **`fromCache`**    | <code>boolean</code>                                | True when the returned asset came from local persistent storage. |
+| **`status`**       | <code>'hit' \| 'downloaded' \| 'notModified'</code> | Result of the cache lookup.                                      |
+
+
+#### ResolveAssetSourceOptions
+
+Input used by `AssetCache.src(...)` and `AssetCache.resolve(...)`.
+
+| Prop       | Type                | Description                                                                         |
+| ---------- | ------------------- | ----------------------------------------------------------------------------------- |
+| **`path`** | <code>string</code> | CDN-relative path or absolute remote URL for an image, video, or other media asset. |
+
+
+#### AssetCacheSourceOptions
+
+Per-asset options used by `AssetCache.src(...)` and `AssetCache.resolve(...)`.
+
+| Prop          | Type                                    | Description                                                                     |
+| ------------- | --------------------------------------- | ------------------------------------------------------------------------------- |
+| **`key`**     | <code>string</code>                     | Stable cache key. Include a file extension when the URL path does not have one. |
+| **`headers`** | <code>{ [key: string]: string; }</code> | HTTP headers sent while fetching or revalidating the asset.                     |
+
+
+#### AssetCacheBinding
+
+Binding returned by `AssetCache.bind(...)`.
+
+| Prop          | Type                                                                               | Description                                                           |
+| ------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **`promise`** | <code>Promise&lt;<a href="#resolvedassetsource">ResolvedAssetSource</a>&gt;</code> | Resolves with the local source metadata after the element is updated. |
+
+| Method     | Signature     | Description                                                        |
+| ---------- | ------------- | ------------------------------------------------------------------ |
+| **cancel** | () =&gt; void | Prevents this binding from updating the element after it resolves. |
+
+
+#### AssetCacheBindOptions
+
+Options used by `AssetCache.bind(...)`.
+
+| Prop                 | Type                | Description                                                  | Default                               |
+| -------------------- | ------------------- | ------------------------------------------------------------ | ------------------------------------- |
+| **`stateAttribute`** | <code>string</code> | Attribute updated with `loading`, `ready`, or `error`.       | <code>'data-asset-cache-state'</code> |
+| **`loadingClass`**   | <code>string</code> | Class added while the local file is being fetched.           |                                       |
+| **`readyClass`**     | <code>string</code> | Class added after the local file is assigned to the element. |                                       |
+| **`errorClass`**     | <code>string</code> | Class added when local resolution fails.                     |                                       |
+
+
+#### GetAssetOptions
+
+Options used to resolve a remote asset into a local persistent file.
+
+| Prop             | Type                                                                                | Description                                                                                                                                                                      |
+| ---------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`url`**        | <code>string</code>                                                                 | Remote asset URL.                                                                                                                                                                |
+| **`key`**        | <code>string</code>                                                                 | Stable cache key. If omitted, the plugin uses a SHA-256 hash of `url`. Include a file extension when the asset will be used directly in an `&lt;img&gt;` or `&lt;video&gt;` tag. |
+| **`headers`**    | <code>{ [key: string]: string; }</code>                                             | HTTP headers sent while fetching or revalidating the asset.                                                                                                                      |
+| **`revalidate`** | <code><a href="#assetcacherevalidateoptions">AssetCacheRevalidateOptions</a></code> | Controls when an existing persistent file should be checked again.                                                                                                               |
+
+
+#### RemoveAssetResult
+
+Remove result.
+
+| Prop          | Type                 | Description                                          |
+| ------------- | -------------------- | ---------------------------------------------------- |
+| **`removed`** | <code>boolean</code> | True when a cached file or its metadata was removed. |
+
+
+#### AssetCacheKeyOptions
+
+Identifies an asset by cache key or by URL. `key` wins when both are set.
+
+| Prop      | Type                | Description                                      |
+| --------- | ------------------- | ------------------------------------------------ |
+| **`key`** | <code>string</code> | Stable cache key.                                |
+| **`url`** | <code>string</code> | Remote asset URL used to derive the default key. |
+
+
+#### ClearCacheResult
+
+Clear result.
+
+| Prop          | Type                | Description                      |
+| ------------- | ------------------- | -------------------------------- |
+| **`removed`** | <code>number</code> | Number of cached assets removed. |
+
+
+#### AssetCacheListResult
+
+List result.
+
+| Prop         | Type                       | Description                                  |
+| ------------ | -------------------------- | -------------------------------------------- |
+| **`assets`** | <code>CachedAsset[]</code> | Cached assets that still have files on disk. |
+
+
+#### AssetCacheSizeResult
+
+Cache size result.
+
+| Prop       | Type                | Description                       |
+| ---------- | ------------------- | --------------------------------- |
+| **`size`** | <code>number</code> | Total cached asset size in bytes. |
 
 
 #### PluginVersionResult
@@ -339,5 +518,29 @@ Plugin version payload.
 | Prop          | Type                | Description                                                 |
 | ------------- | ------------------- | ----------------------------------------------------------- |
 | **`version`** | <code>string</code> | Version identifier returned by the platform implementation. |
+
+
+### Type Aliases
+
+
+#### AssetCacheRevalidateStrategy
+
+Revalidation mode used when an asset already exists in persistent storage.
+
+<code>'never' | 'ttl' | 'always' | 'etag' | 'last-modified'</code>
+
+
+#### AssetCacheSourceInput
+
+Convenience input accepted by `AssetCache.src(...)` and `AssetCache.resolve(...)`.
+
+<code>string | <a href="#resolveassetsourceoptions">ResolveAssetSourceOptions</a></code>
+
+
+#### AssetCacheBindableElement
+
+Element supported by `AssetCache.bind(...)`.
+
+<code>HTMLImageElement | HTMLVideoElement</code>
 
 </docgen-api>

@@ -4,7 +4,7 @@ export default {
     {
       file: 'dist/plugin.js',
       format: 'iife',
-      name: 'capacitorPluginTemplate',
+      name: 'capacitorAssetCache',
       globals: {
         '@capacitor/core': 'capacitorExports',
       },

@@ -1,18 +1,18 @@
-# Example App for `@capgo/capacitor-plugin-template`
+# Example App for `@capgo/capacitor-asset-cache`
 
 This Vite project links directly to the local plugin source so you can validate iOS, Android, and Web wiring while developing.
 
 ## Getting started
 
 ```bash
-bun install
-bun run start
+npm install
+npm run start
 ```
 
 To test on native shells:
 
 ```bash
-bunx cap add ios
-bunx cap add android
-bunx cap sync
+npx cap add ios
+npx cap add android
+npx cap sync
 ```

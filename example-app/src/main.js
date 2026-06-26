@@ -1,13 +1,25 @@
 import './style.css';
 
 import { Capacitor } from '@capacitor/core';
-import { PluginTemplate } from '@capgo/capacitor-plugin-template';
+import { AssetCache } from '@capgo/capacitor-asset-cache';
 import { CapacitorUpdater } from '@capgo/capacitor-updater';
 
 const output = document.getElementById('plugin-output');
-const echoInput = document.getElementById('echo-value');
-const echoButton = document.getElementById('run-echo');
-const versionButton = document.getElementById('get-version');
+const pathInput = document.getElementById('asset-path');
+const showButton = document.getElementById('show-asset');
+const listButton = document.getElementById('list-assets');
+const clearButton = document.getElementById('clear-cache');
+const preview = document.getElementById('asset-preview');
+
+let activeBinding;
+
+AssetCache.configure({
+  cdnUrl: 'https://picsum.photos/seed/capgo-asset-cache/',
+  revalidate: {
+    strategy: 'ttl',
+    maxAgeSeconds: 3600,
+  },
+});
 
 const setOutput = (value) => {
   output.textContent = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
@@ -19,19 +31,37 @@ if (Capacitor.isNativePlatform()) {
   });
 }
 
-echoButton.addEventListener('click', async () => {
+showButton.addEventListener('click', async () => {
+  activeBinding?.cancel();
+  preview.removeAttribute('src');
+  setOutput('Loading local asset...');
+
   try {
-    const result = await PluginTemplate.echo({ value: echoInput.value });
-    setOutput(result);
+    activeBinding = AssetCache.bind(preview, pathInput.value, {
+      key: 'demo-image.jpg',
+    });
+    setOutput(await activeBinding.promise);
   } catch (error) {
     setOutput(`Error: ${error?.message ?? error}`);
   }
 });
 
-versionButton.addEventListener('click', async () => {
+listButton.addEventListener('click', async () => {
   try {
-    const result = await PluginTemplate.getPluginVersion();
-    setOutput(result);
+    setOutput(await AssetCache.list());
+  } catch (error) {
+    setOutput(`Error: ${error?.message ?? error}`);
+  }
+});
+
+clearButton.addEventListener('click', async () => {
+  activeBinding?.cancel();
+  activeBinding = undefined;
+
+  try {
+    preview.removeAttribute('src');
+    preview.removeAttribute('data-asset-cache-state');
+    setOutput(await AssetCache.clear());
   } catch (error) {
     setOutput(`Error: ${error?.message ?? error}`);
   }

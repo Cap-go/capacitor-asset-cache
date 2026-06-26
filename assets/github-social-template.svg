@@ -49,7 +49,7 @@
     font-weight="700"
     letter-spacing="0"
   >
-    GitHub social preview - Cap-go/capacitor-plugin-template - edit copy, keep npm install text
+    GitHub social preview - Cap-go/capacitor-asset-cache
   </text>
 
   <g clip-path="url(#headlineClip)">
@@ -62,7 +62,7 @@
       font-weight="850"
       letter-spacing="0"
     >
-      Add plugin features in one line
+      Transparent media src
     </text>
     <text
       x="80"
@@ -73,7 +73,7 @@
       font-weight="850"
       letter-spacing="0"
     >
-      without native friction
+      for Capacitor apps
     </text>
   </g>
 
@@ -87,7 +87,7 @@
     font-weight="600"
     letter-spacing="0"
   >
-    Capacitor plugin template for fast, production-ready native integrations.
+    Pass a CDN path, get a local src for images and videos.
   </text>
 
   <g filter="url(#shadow)">
@@ -136,7 +136,7 @@
     font-size="39"
     letter-spacing="0"
   >
-    npm i @capgo/capacitor-plugin-template
+    npm i @capgo/capacitor-asset-cache
   </text>
 
   <g transform="translate(80 490)">
@@ -152,7 +152,7 @@
       font-weight="760"
       letter-spacing="0"
     >
-      iOS
+      Media
     </text>
   </g>
   <g transform="translate(270 490)">
@@ -168,7 +168,7 @@
       font-weight="760"
       letter-spacing="0"
     >
-      Android
+      Offline
     </text>
   </g>
   <g transform="translate(488 490)">
@@ -184,7 +184,7 @@
       font-weight="760"
       letter-spacing="0"
     >
-      Web
+      HTTP
     </text>
   </g>
 </svg>

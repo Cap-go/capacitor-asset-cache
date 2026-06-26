@@ -15,9 +15,9 @@ body {
 }
 
 main.container {
-  width: min(560px, 100%);
+  width: min(680px, 100%);
   background: rgba(15, 23, 42, 0.88);
-  border-radius: 14px;
+  border-radius: 8px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -42,7 +42,7 @@ label {
 
 input {
   border: 1px solid rgba(148, 163, 184, 0.4);
-  border-radius: 10px;
+  border-radius: 8px;
   background: rgba(15, 23, 42, 0.55);
   color: inherit;
   padding: 0.7rem 0.8rem;
@@ -57,7 +57,7 @@ input {
 
 button {
   border: none;
-  border-radius: 999px;
+  border-radius: 8px;
   padding: 0.65rem 1.1rem;
   font-size: 0.95rem;
   font-weight: 600;
@@ -70,12 +70,36 @@ button:hover {
   filter: brightness(1.08);
 }
 
+img#asset-preview {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  background: rgba(148, 163, 184, 0.16);
+  transition: opacity 160ms ease, filter 160ms ease;
+}
+
+img#asset-preview[data-asset-cache-state='loading'] {
+  opacity: 0.45;
+  filter: saturate(0.5);
+}
+
+img#asset-preview[data-asset-cache-state='ready'] {
+  opacity: 1;
+  filter: none;
+}
+
+img#asset-preview[data-asset-cache-state='error'] {
+  outline: 2px solid #f87171;
+}
+
 pre#plugin-output {
   margin: 0;
   min-height: 110px;
   max-height: 260px;
   overflow: auto;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 0.9rem;
   background: rgba(15, 23, 42, 0.58);
   border: 1px solid rgba(148, 163, 184, 0.18);

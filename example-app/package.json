@@ -1,7 +1,7 @@
 {
-  "name": "plugin-template-example",
+  "name": "asset-cache-example",
   "version": "1.0.0",
-  "description": "Example Capacitor app for @capgo/capacitor-plugin-template",
+  "description": "Example Capacitor app for @capgo/capacitor-asset-cache",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -12,7 +12,7 @@
     "@capacitor/core": "^8.3.4",
     "@capacitor/android": "^8.3.4",
     "@capacitor/ios": "^8.3.4",
-    "@capgo/capacitor-plugin-template": "file:..",
+    "@capgo/capacitor-asset-cache": "file:..",
     "@capgo/capacitor-updater": "^8.45.11"
   },
   "devDependencies": {

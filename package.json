@@ -1,7 +1,7 @@
 {
-  "name": "@capgo/capacitor-plugin-template",
-  "version": "8.1.7",
-  "description": "Capgo Capacitor plugin template for quickly bootstrapping new plugins.",
+  "name": "@capgo/capacitor-asset-cache",
+  "version": "8.0.0",
+  "description": "Capacitor plugin for transparent local caching of large images and videos.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -13,37 +13,40 @@
     "ios/Sources",
     "ios/Tests",
     "Package.swift",
-    "CapgoCapacitorPluginTemplate.podspec"
+    "CapgoCapacitorAssetCache.podspec"
   ],
   "author": "Martin Donadieu <martin@capgo.app>",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Cap-go/capacitor-plugin-template.git"
+    "url": "git+https://github.com/Cap-go/capacitor-asset-cache.git"
   },
   "bugs": {
-    "url": "https://github.com/Cap-go/capacitor-plugin-template/issues"
+    "url": "https://github.com/Cap-go/capacitor-asset-cache/issues"
   },
-  "homepage": "https://github.com/Cap-go/capacitor-plugin-template",
+  "homepage": "https://capgo.app/docs/plugins/asset-cache/",
   "keywords": [
-    "__AI_KEYWORD_PRIMARY__",
-    "__AI_KEYWORD_SECONDARY__",
-    "__AI_KEYWORD_USE_CASE__",
-    "__AI_KEYWORD_PLATFORM__",
-    "__AI_KEYWORD_VENDOR__"
+    "capacitor",
+    "plugin",
+    "asset cache",
+    "persistent cache",
+    "cdn assets",
+    "media src",
+    "video cache",
+    "image cache",
+    "offline assets"
   ],
   "scripts": {
-    "init-plugin": "./scripts/init-plugin.sh",
     "verify": "bun run verify:ios && bun run verify:android && bun run verify:web",
-    "verify:ios": "xcodebuild -scheme CapgoCapacitorPluginTemplate -destination generic/platform=iOS",
+    "verify:ios": "xcodebuild -scheme CapgoCapacitorAssetCache -destination generic/platform=iOS",
     "verify:android": "cd android && ./gradlew clean build test && cd ..",
     "verify:web": "bun run build",
-    "lint": "bun run eslint && bun run prettier -- --check && bun run swiftlint -- lint",
     "fmt": "bun run eslint -- --fix && bun run prettier -- --write && bun run swiftlint -- --fix --format",
-    "eslint": "eslint \"**/*.ts\"",
-    "prettier": "prettier-pretty-check \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
+    "eslint": "eslint \"src/**/*.ts\"",
+    "prettier": "prettier-pretty-check \"src/**/*.ts\" \"example-app/**/*.{css,html,ts,js}\" \"android/src/**/*.java\" --plugin=prettier-plugin-java",
+    "lint": "bun run eslint && bun run prettier -- --check && bun run swiftlint -- lint",
     "swiftlint": "node-swiftlint",
-    "docgen": "docgen --api PluginTemplatePlugin --output-readme README.md --output-json dist/docs.json",
+    "docgen": "docgen --api AssetCachePlugin --output-readme README.md --output-json dist/docs.json",
     "build": "bun run clean && bun run docgen && tsc && rollup -c rollup.config.mjs",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
