@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 const config: CapacitorConfig = {
   appId: 'app.capgo.asset_cache.example',
-  appName: 'Asset Cache Example',
+  appName: '@capgo/capacitor-asset-cache',
   webDir: 'dist',
   plugins: {
     CapacitorUpdater: {
