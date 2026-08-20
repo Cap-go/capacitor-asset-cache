@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-asset-cache",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Capacitor plugin for transparent local caching of large images and videos.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
