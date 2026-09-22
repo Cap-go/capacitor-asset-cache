@@ -9,15 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@capacitor/core": "^8.3.4",
-    "@capacitor/android": "^8.3.4",
-    "@capacitor/ios": "^8.3.4",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/ios": "^8.5.2",
     "@capgo/capacitor-asset-cache": "file:..",
     "@capgo/capacitor-updater": "^8.45.11"
   },
   "devDependencies": {
-    "@capacitor/cli": "^8.3.4",
+    "@capacitor/cli": "^8.5.2",
     "typescript": "^6.0.3",
-    "vite": "^8.0.13"
+    "vite": "^8.3.0"
   }
 }
