@@ -1,13 +1,27 @@
 # @capgo/capacitor-asset-cache
 
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-asset-cache" alt="Capgo - Instant updates for Capacitor" /></a>
+Cache large images, videos and other CDN files on the device so they load instantly and work offline. One call turns a remote URL into a local file your WebView can display.
+
+<a href="https://capgo.app/?ref=plugin_asset_cache"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-asset-cache" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_asset_cache">Get instant updates for your app with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_asset_cache">Missing a feature? We will build the plugin for you</a></h2>
+  <p><b>Capgo</b>: open-source live updates for Ionic and Capacitor apps. Ship OTA fixes and features instantly, without waiting for app store review.</p>
+  <h2><a href="https://capgo.app/register/?ref=plugin_asset_cache">➡️ Get started for free</a></h2>
+  <p>14-day unlimited free trial. No credit card required</p>
+  <p><a href="https://capgo.app/consulting/?ref=plugin_asset_cache">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
 
-Transparent persistent media cache for Capacitor images, videos, and other large CDN assets.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Cap-go/capacitor-asset-cache/main/assets/github-social-preview.png" alt="@capgo/capacitor-asset-cache for Capacitor apps" width="300" />
+</p>
+
+## Key features
+
+- **Local files**: `get()` downloads an asset once and returns a persistent local file.
+- **Display ready**: `resolve()` and `src()` turn a CDN path or URL into a value you can put in `src`.
+- **Revalidation**: `never`, `ttl` (with `maxAgeSeconds`), `always`, `etag` or `last-modified` strategies, plus custom request headers.
+- **Cache management**: `list()`, `getCacheSize()`, `remove()` and `clear()`.
+- **Platforms**: iOS, Android and Web. The web implementation keeps the same API in the browser.
 
 ## Why Asset Cache?
 
